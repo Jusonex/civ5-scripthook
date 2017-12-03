@@ -1,3 +1,10 @@
+/*****************************************************************************
+*
+*  PROJECT:     CIV5: Scripthook
+*  LICENSE:     See LICENSE in the top level directory
+*  PURPOSE:		Script hook core class
+*
+*****************************************************************************/
 #include "ScriptHook.h"
 
 #include <iostream>

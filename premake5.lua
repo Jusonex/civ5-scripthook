@@ -4,7 +4,7 @@ workspace "civ5_scripthook"
 	targetdir "bin"
 	startproject "civ5_scripthook"
 
-	defines { "_CRT_SECURE_NO_WARNINGS", "WIN32_LEAN_AND_MEAN", "NOMINMAX }
+	defines { "_CRT_SECURE_NO_WARNINGS", "WIN32_LEAN_AND_MEAN", "NOMINMAX" }
 
 	filter "configurations:Debug"
 		targetsuffix "_d"
