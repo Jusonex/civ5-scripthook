@@ -5,6 +5,10 @@ project "lua"
 
 	defines { "LUA_BUILD_AS_DLL" }
 
+	includedirs { "../include" }
+	forceincludes { "scripthook_calls.h" }
+	links { "civ5_scripthook" }
+
 	vpaths {
 		["Headers"] = "**.h",
 		["Sources"] = "**.c",
@@ -15,4 +19,6 @@ project "lua"
 		"premake5.lua",
 		"**.c",
 		"**.h",
+
+		"scripthook_calls.cpp"
 	}

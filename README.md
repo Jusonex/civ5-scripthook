@@ -1,5 +1,5 @@
 # Sid Meier’s Civilization 5: Scripthook
-It turned out that writing mods using the official CIV5 modding SDK is hard when multiplayer should be supported.   
+It turned out that writing mods using the official CIV5 modding SDK is hard if multiplayer should be supported.   
 For this reason, we were looking for an easier alternative.
 
 ## How it works
