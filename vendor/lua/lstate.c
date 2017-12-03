@@ -187,9 +187,9 @@ LUA_API lua_State *lua_newstate (lua_Alloc f, void *ud) {
   else
     luai_userstateopen(L);
 
-  // ScriptHook-Patch
-  scripthook_call_vm_create(L);
-  // End ScriptHook-Patch
+  SCRIPTHOOK_ZONE({
+    scripthook_call_vm_create(L);
+  });
 
   return L;
 }

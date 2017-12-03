@@ -18,7 +18,8 @@ workspace "civ5_scripthook"
 		cppdialect "C++17"
 		kind "StaticLib"
 
-		includedirs { "include" }
+		includedirs { "include", "vendor" }
+		links { "lua_library" }
 
 		files {
 			"premake5.lua",

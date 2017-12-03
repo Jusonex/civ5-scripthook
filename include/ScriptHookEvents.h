@@ -2,7 +2,7 @@
 *
 *  PROJECT:     CIV5: Scripthook
 *  LICENSE:     See LICENSE in the top level directory
-*  PURPOSE:		Script hook events class
+*  PURPOSE:	    Script hook events class
 *
 *****************************************************************************/
 #pragma once

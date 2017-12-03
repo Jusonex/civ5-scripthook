@@ -1,0 +1,7 @@
+{
+    "name": "test_package",
+    "description": "A test package for debugging purposes",
+    "scripts": [
+        "helloWorld.lua"
+    ]
+}

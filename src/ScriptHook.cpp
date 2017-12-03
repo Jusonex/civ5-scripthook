@@ -2,12 +2,14 @@
 *
 *  PROJECT:     CIV5: Scripthook
 *  LICENSE:     See LICENSE in the top level directory
-*  PURPOSE:		Script hook core class
+*  PURPOSE:     Script hook core class
 *
 *****************************************************************************/
 #include "ScriptHook.h"
+#include "Package.h"
 
 #include <iostream>
+#include <fs.h>
 #include <Windows.h>
 
 ScriptHook::ScriptHook()
@@ -16,12 +18,16 @@ ScriptHook::ScriptHook()
 	InitConsole();
 
 	// Add some events for testing
-	GetEvents().OnVmCreate += [](lua_State*) {
+	GetEvents().OnVmCreate += [this](lua_State* luaVM) {
 		std::cout << "OnVmCreated called" << std::endl;
+
+		// Load packages
+		LoadPackages(luaVM);
 	};
 	GetEvents().OnScriptLoad += [](lua_State*, const std::string& content, const std::string& chunkName) {
 		std::cout << "OnScriptLoad called (chunk name: " << chunkName << ")" << std::endl;
 	};
+
 }
 
 void ScriptHook::InitConsole()
@@ -29,6 +35,24 @@ void ScriptHook::InitConsole()
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
 	SetConsoleTitleA("CIV5: Scripthook");
+}
+
+void ScriptHook::LoadPackages(lua_State* luaVM)
+{
+	for (auto& packagePath : fs::directory_iterator(Package::GetPackagesPath()))
+	{
+		// Ignore non-directories
+		if (!fs::is_directory(packagePath))
+			continue;
+
+		// Construct package
+		auto package = std::make_unique<Package>(packagePath.path().filename().generic_string());
+		std::cout << "Loading package: " << package->GetName() << std::endl;
+		package->Load(luaVM);
+
+		// Transfer ownership to package list
+		_packages.push_back(std::move(package));
+	}
 }
 
 

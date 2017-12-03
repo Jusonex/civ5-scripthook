@@ -2,7 +2,7 @@
 *
 *  PROJECT:     CIV5: Scripthook
 *  LICENSE:     See LICENSE in the top level directory
-*  PURPOSE:		Generic event template
+*  PURPOSE:     Generic event template
 *
 *****************************************************************************/
 #pragma once

@@ -608,9 +608,9 @@ static const char *getS (lua_State *L, void *ud, size_t *size) {
 
 LUALIB_API int luaL_loadbuffer (lua_State *L, const char *buff, size_t size,
                                 const char *name) {
-  // ScriptHook-Patch
-  scripthook_call_script_load(L, buff, size, name);
-  // End
+  SCRIPTHOOK_ZONE({
+    scripthook_call_script_load(L, buff, size, name);
+  });
 
   LoadS ls;
   ls.s = buff;
