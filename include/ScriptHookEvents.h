@@ -21,4 +21,8 @@ struct ScriptHookEvents
 	// Called when a script file is loaded
 	// Parameters: luaVM, content, chunk name
 	Event<lua_State*, const std::string&, const std::string&> OnScriptLoad;
+
+	// Called when the LuaVM is ready (i.e. functions and classes are available)
+	// Parameters: luaVM
+	Event<lua_State*> OnGameStart;
 };

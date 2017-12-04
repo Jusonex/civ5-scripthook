@@ -9,6 +9,7 @@
 
 #include <fstream>
 #include <stdexcept>
+#include <iostream>
 #include <json.hpp>
 
 extern "C"
@@ -24,7 +25,6 @@ Package::Package(const std::string& name) : _name(name)
 {
 }
 
-#include <Windows.h>
 void Package::Load(lua_State* luaVM)
 {
 	if (!ReadMetadata())
@@ -40,7 +40,11 @@ void Package::Load(lua_State* luaVM)
 	for (auto& scriptPath : _scripts)
 	{
 		// TODO: We need to use luaL_loadbuffer for unicode support
-		luaL_dofile(luaVM, GetAbsolutePath().append(scriptPath).generic_string().c_str());
+		auto absolutePath = GetAbsolutePath().append(scriptPath).generic_string();
+		if (luaL_dofile(luaVM, absolutePath.c_str()) != 0)
+		{
+			std::cout << "SCRIPT ERROR: " << lua_tostring(luaVM, -1) << std::endl;
+		}
 	}
 }
 

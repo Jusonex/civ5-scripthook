@@ -20,14 +20,19 @@ ScriptHook::ScriptHook()
 	// Add some events for testing
 	GetEvents().OnVmCreate += [this](lua_State* luaVM) {
 		std::cout << "OnVmCreated called" << std::endl;
+	};
+	GetEvents().OnScriptLoad += [this](lua_State* luaVM, const std::string& content, const std::string& chunkName) {
+		if (chunkName == "Assets\\UI\\InGame\\LeaderHead\\DiscussLeader.lua")
+		{
+			GetEvents().OnGameStart(luaVM);
+		}
 
+		std::cout << "OnScriptLoad called (chunk name: " << chunkName << ")" << std::endl;
+	};
+	GetEvents().OnGameStart += [this](lua_State* luaVM) {
 		// Load packages
 		LoadPackages(luaVM);
 	};
-	GetEvents().OnScriptLoad += [](lua_State*, const std::string& content, const std::string& chunkName) {
-		std::cout << "OnScriptLoad called (chunk name: " << chunkName << ")" << std::endl;
-	};
-
 }
 
 void ScriptHook::InitConsole()
